@@ -1,0 +1,5 @@
+dashboards
+k8s
+grafana
+prometheus
+*.iml

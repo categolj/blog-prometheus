@@ -1,0 +1,33 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+rule_files:
+scrape_configs:
+  - job_name: blog-ui
+    metrics_path: /actuator/prometheus
+    basic_auth:
+      username: test
+      password: pass
+    static_configs:
+    - targets:
+      - localhost:8082
+      labels:
+        kubernetes_namespace: local
+        app: blog-ui
+        kubernetes_pod_name: local
+  - job_name: blog-api
+    metrics_path: /actuator/prometheus
+    basic_auth:
+      username: test
+      password: pass
+    static_configs:
+    - targets:
+      - localhost:8080
+      labels:
+        kubernetes_namespace: local
+        app: blog-api
+        kubernetes_pod_name: local
